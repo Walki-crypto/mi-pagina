@@ -23,7 +23,7 @@ jobs:
 
       - name: Deploy to Surge
         env:
-          SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
+          SURGE_TOKEN: ${{ 80bb62a687879096d31e077c5472a141 }}
           SURGE_SUBDOMAIN: ${{ secrets.SURGE_SUBDOMAIN }}
         run: |
           surge --project ./ --domain ${{ secrets.SURGE_SUBDOMAIN }}.surge.sh
