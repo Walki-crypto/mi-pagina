@@ -10,14 +10,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-    - name: Build and Deploy
-      run: |
-        # Configurar Surge.sh
-        npm install --global surge
-        surge token <80bb62a687879096d31e077c5472a141> # Reemplazar <SURGE_API_KEY> con la API Key de Surge de cada estudiante
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
 
-        # Desplegar en Surge.sh
-        surge --project ./ --domain <estudiante1>.surge.sh # Reemplazar <SURGE_SUBDOMAIN> con un subdominio único para cada estudiante
+      - name: Install Surge
+        run: npm install --global surge
+
+      - name: Deploy to Surge
+        env:
+          SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
+          SURGE_SUBDOMAIN: ${{ secrets.SURGE_SUBDOMAIN }}
+        run: |
+          surge --project ./ --domain ${{ secrets.SURGE_SUBDOMAIN }}.surge.sh
